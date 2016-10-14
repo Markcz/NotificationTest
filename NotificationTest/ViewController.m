@@ -18,12 +18,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //测试通知
+    ////////测试通知
+    
+    //添加观察者
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerComplete:) name:@"RegisterComplete" object:nil];
     
-    //测试KVO 目的：观察User类的userAge属性
+    ////////测试KVO 目的：观察User类的userAge属性
     //并将当前对象作为观察者(必须实现 NSKeyValueObserving协议
+    
     _user1 = [User new];
+    //将当前对象添加为观察者
     [self addObserver:self forKeyPath:@"user1.userAge" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld   context:nil];
     
     self.user1.userAge = @"32";
@@ -42,10 +46,11 @@
         _userAge.text = (NSString*)change[NSKeyValueChangeNewKey];
     }
 }
-
+//注册完成回调函数
 -(void)registerComplete:(NSNotification*) info{
    NSString* userID = [info.userInfo objectForKey:@"userID"];
     self.userID.text  = userID;
+    //移除观察者
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"RegisterComplete" object:nil];
 }
 

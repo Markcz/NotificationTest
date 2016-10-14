@@ -19,6 +19,7 @@
 }
 - (IBAction)saveInfo:(id)sender {
     NSDictionary*dicInfo = [NSDictionary dictionaryWithObject:self.userID.text forKey:@"userID"];
+    //发送通知
     [[NSNotificationCenter defaultCenter]postNotificationName:@"RegisterComplete" object:nil userInfo:dicInfo];
     
 }
